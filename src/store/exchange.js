@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 function _change(obj) {
   let _obj = obj.rates;
@@ -20,12 +20,12 @@ const currency = {
   namespaced: true,
 
   state: {
-    param: '',
-    baseRates: 'GBR',
+    param: "",
+    baseRates: "GBR",
     curren: {
-      rates: {},
+      rates: {}
     },
-    changeBase: {},
+    changeBase: {}
   },
   mutations: {
     SET_RATES(state, currency) {
@@ -40,7 +40,7 @@ const currency = {
     SET_CHANGE_RATES(state, payload) {
       state.changeBase = payload;
       console.log(state.changeBase);
-    },
+    }
   },
   getters: {
     changeRates(state) {
@@ -50,24 +50,24 @@ const currency = {
     changeState(state) {
       //console.log(_changeState(state.curren.rates));
       return _changeState(state.curren.rates);
-    },
+    }
   },
   actions: {
     setCurrency(context) {
       return axios
-        .get('https://api.openrates.io/latest' + '?base=USD')
+        .get("https://api.openrates.io/latest" + "base=USD")
         .then(response => {
-          context.commit('SET_RATES', response.data);
+          context.commit("SET_RATES", response.data);
         });
     },
     setCurrencyBase(context, baseRates) {
       console.log(baseRates);
       return axios
-        .get('https://api.openrates.io/latest' + '?base=' + baseRates)
+        .get("https://api.openrates.io/latest" + "?base=" + baseRates)
         .then(response => {
-          context.commit('SET_CHANGE_RATES', response.data);
+          context.commit("SET_CHANGE_RATES", response.data);
         });
-    },
-  },
+    }
+  }
 };
 export default currency;
